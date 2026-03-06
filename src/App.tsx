@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Button, Modal, Form, Input, Select, Table, Pagination } from 'antd';
+import { useThemeSync } from './hooks/useThemeSync';
 
 function App() {
+  useThemeSync();
+
   const [count, setCount] = useState(0);
 
   const [open, setOpen] = useState(false);
