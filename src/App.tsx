@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Modal, Form, Input, Select, Table, Pagination } from 'antd';
 import { useThemeSync } from './hooks/useThemeSync';
+import Home from './pages/home';
 
 function App() {
   useThemeSync();
@@ -44,6 +45,7 @@ function App() {
           <p>Some contents...</p>
           <p>Some contents...</p>
         </Modal>
+        <Home />
         <Form>
           <Form.Item label="Name" name="name">
             <Input />

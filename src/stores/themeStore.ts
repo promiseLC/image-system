@@ -1,41 +1,37 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
+import { type ThemeColorId, DEFAULT_THEME_COLOR_ID } from '@/constants/themeColors';
+import { DEFAULT_BACKGROUND_STYLE_ID, type BackgroundStyleId } from '@/constants/backgroundStyles';
 
 interface ThemeState {
-  /** 主题色，如 primary、按钮等的主色 */
-  themeColor: string;
-  /** 背景色 */
-  backgroundColor: string;
+  /** 主题色 id，对应 THEME_COLORS */
+  themeColorId: ThemeColorId;
+  /** 背景风格 id，对应 BACKGROUND_STYLES */
+  backgroundStyleId: BackgroundStyleId;
   /** 设置主题色 */
-  setThemeColor: (color: string) => void;
-  /** 设置背景色 */
-  setBackgroundColor: (color: string) => void;
+  setThemeColorId: (id: ThemeColorId) => void;
+  /** 设置背景风格 */
+  setBackgroundStyleId: (id: BackgroundStyleId) => void;
   /** 重置为默认值 */
   reset: () => void;
 }
 
-const DEFAULT_THEME_COLOR = '#1677ff'; // antd 默认蓝
-const DEFAULT_BACKGROUND_COLOR = '#ffffff';
-
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      themeColor: DEFAULT_THEME_COLOR,
-      backgroundColor: DEFAULT_BACKGROUND_COLOR,
+      themeColorId: DEFAULT_THEME_COLOR_ID,
+      backgroundStyleId: DEFAULT_BACKGROUND_STYLE_ID,
 
-      setThemeColor: (color) => set({ themeColor: color }),
+      setThemeColorId: (id) => set({ themeColorId: id }),
 
-      setBackgroundColor: (color) => set({ backgroundColor: color }),
+      setBackgroundStyleId: (id) => set({ backgroundStyleId: id }),
 
       reset: () =>
         set({
-          themeColor: DEFAULT_THEME_COLOR,
-          backgroundColor: DEFAULT_BACKGROUND_COLOR,
+          themeColorId: DEFAULT_THEME_COLOR_ID,
+          backgroundStyleId: DEFAULT_BACKGROUND_STYLE_ID,
         }),
     }),
-    {
-      name: 'theme-storage',
-      storage: createJSONStorage(() => localStorage),
-    }
+    { name: 'theme-storage' }
   )
 );

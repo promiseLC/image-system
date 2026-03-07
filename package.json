@@ -17,6 +17,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.1.0",
     "antd": "^6.3.1",
     "classnames": "^2.5.1",
     "react": "^19.2.0",
