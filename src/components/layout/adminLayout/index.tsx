@@ -6,12 +6,14 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LogoutOutlined } fr
 import { protectedRouteDefinitions } from '@/router/routeDefinitions';
 import { buildMenuFromRoutes, getOpenKeysForPathname } from '@/router/utils/buildMenuFromRoutes';
 import { filterDefinitionsByAccess } from '@/router/utils/routeAccess';
+import { useRouteTitle } from '@/router/hooks/useRouteTitle';
 import styles from './index.module.scss';
 import { useAuthStore } from '@/stores';
 
 const SIDER_COLLAPSED_KEY = 'admin-sider-collapsed';
 
 const AdminLayout: React.FC = () => {
+  useRouteTitle();
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname || '/';
