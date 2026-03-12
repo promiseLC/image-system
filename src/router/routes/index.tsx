@@ -6,6 +6,7 @@ import { authLoader, loginRedirectLoader } from '../guards/authLoader';
 import RouteErrorBoundary from '@/components/RouteErrorBoundary';
 import Login from '@/pages/login';
 import SuspenseFallback from '@/components/suspenseFallback';
+import { canAccessRoute } from '@/router/utils/routeAccess';
 
 /**
  * 通过 import.meta.glob 预扫描页面/布局，路径即 key
@@ -35,9 +36,9 @@ function withSuspense(Component: React.LazyExoticComponent<React.ComponentType> 
   );
 }
 
-/** 将纯路由定义合并为完整路由配置 */
+/** 将纯路由定义合并为完整路由配置，并按 handle.roles / handle.auth 过滤 */
 function mergeDefinitionsToRoutes(defs: RouteDefinition[], extra?: Partial<AppRouteObject>): AppRouteObject[] {
-  return defs.map((def) => {
+  return defs.filter(canAccessRoute).map((def) => {
     const route: AppRouteObject = {
       path: def.path,
       index: def.index,

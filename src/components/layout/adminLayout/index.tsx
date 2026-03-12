@@ -5,6 +5,7 @@ import { Layout, Menu, Button, Dropdown } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { protectedRouteDefinitions } from '@/router/routeDefinitions';
 import { buildMenuFromRoutes, getOpenKeysForPathname } from '@/router/utils/buildMenuFromRoutes';
+import { filterDefinitionsByAccess } from '@/router/utils/routeAccess';
 import styles from './index.module.scss';
 import { useAuthStore } from '@/stores';
 
@@ -16,7 +17,9 @@ const AdminLayout: React.FC = () => {
   const pathname = location.pathname || '/';
   const logout = useAuthStore((s) => s.logout);
 
-  const menuItems = useMemo(() => buildMenuFromRoutes(protectedRouteDefinitions), []);
+  const filteredRoutes = useMemo(() => filterDefinitionsByAccess(protectedRouteDefinitions), []);
+
+  const menuItems = useMemo(() => buildMenuFromRoutes(filteredRoutes), [filteredRoutes]);
 
   const [collapsed, setCollapsed] = useState(() => {
     try {
@@ -28,7 +31,7 @@ const AdminLayout: React.FC = () => {
   });
   const selectedKeys = useMemo(() => [pathname], [pathname]);
 
-  const openKeys = useMemo(() => getOpenKeysForPathname(protectedRouteDefinitions, pathname), [pathname]);
+  const openKeys = useMemo(() => getOpenKeysForPathname(filteredRoutes, pathname), [filteredRoutes, pathname]);
 
   useEffect(() => {
     try {

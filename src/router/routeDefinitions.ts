@@ -36,7 +36,7 @@ export const protectedRouteDefinitions: RouteDefinition[] = [
           breadcrumb: '仪表盘',
           keepAlive: false,
           auth: [],
-          roles: [],
+          roles: ['admin', 'user'],
         },
       },
       {
@@ -52,7 +52,7 @@ export const protectedRouteDefinitions: RouteDefinition[] = [
           breadcrumb: '图片管理',
           keepAlive: true,
           auth: [],
-          roles: [],
+          roles: ['admin'],
         },
         children: [
           {
@@ -63,6 +63,18 @@ export const protectedRouteDefinitions: RouteDefinition[] = [
               menu: { label: '图片列表', icon: 'UnorderedListOutlined', order: 0 },
               breadcrumb: '图片列表',
               keepAlive: true,
+              auth: [],
+              roles: [],
+            },
+          },
+          {
+            path: 'detail/:id',
+            component: '/src/pages/images/detail/index.tsx',
+            handle: {
+              title: '图片详情 - 图片管理系统',
+              menu: { hide: true, label: '详情' },
+              breadcrumb: '图片详情',
+              keepAlive: false,
               auth: [],
               roles: [],
             },
@@ -102,7 +114,7 @@ export const protectedRouteDefinitions: RouteDefinition[] = [
           breadcrumb: '系统设置',
           keepAlive: false,
           auth: [],
-          roles: [],
+          roles: ['admin', 'user'],
         },
       },
       {
@@ -114,7 +126,7 @@ export const protectedRouteDefinitions: RouteDefinition[] = [
           breadcrumb: '个人中心',
           keepAlive: false,
           auth: [],
-          roles: [],
+          roles: ['admin', 'user'],
         },
       },
       {

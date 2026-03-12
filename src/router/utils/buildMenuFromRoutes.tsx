@@ -8,6 +8,7 @@ import {
   UnorderedListOutlined,
 } from '@ant-design/icons';
 import type { RouteDefinition } from '../routeDefinitions';
+import { canAccessRoute } from './routeAccess';
 
 const ICON_MAP: Record<string, React.ReactNode> = {
   DashboardOutlined: <DashboardOutlined />,
@@ -32,7 +33,9 @@ export function buildMenuFromRoutes(routes: RouteDefinition[]): MenuProps['items
   const rootRoute = routes.find((r) => r.path === '/');
   const rootChildren = rootRoute?.children ?? [];
 
-  const sorted = [...rootChildren].sort((a, b) => (a.handle?.menu?.order ?? 999) - (b.handle?.menu?.order ?? 999));
+  const sorted = [...rootChildren]
+    .filter(canAccessRoute)
+    .sort((a, b) => (a.handle?.menu?.order ?? 999) - (b.handle?.menu?.order ?? 999));
 
   for (const route of sorted) {
     const path = route.path ? `/${route.path}` : '/';
@@ -40,12 +43,13 @@ export function buildMenuFromRoutes(routes: RouteDefinition[]): MenuProps['items
 
     if (!menu || menu.hide) continue;
 
-    const nestedWithMenu = route.children?.filter((c) => c.handle?.menu && !c.handle.menu.hide) ?? [];
+    const nestedWithMenu =
+      route.children?.filter((c) => canAccessRoute(c) && c.handle?.menu && !c.handle.menu.hide) ?? [];
     const hasNestedChildren = nestedWithMenu.length > 0;
 
     if (hasNestedChildren && route.children) {
       const childItems: MenuProps['items'] = route.children
-        .filter((c) => c.handle?.menu && !c.handle.menu.hide)
+        .filter((c) => canAccessRoute(c) && c.handle?.menu && !c.handle.menu.hide)
         .sort((a, b) => (a.handle?.menu?.order ?? 0) - (b.handle?.menu?.order ?? 0))
         .map((c) => {
           const childPath = c.path ? `${path}/${c.path}` : path;
