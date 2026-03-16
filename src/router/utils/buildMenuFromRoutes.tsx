@@ -6,6 +6,11 @@ import {
   DeleteOutlined,
   SettingOutlined,
   UnorderedListOutlined,
+  TagsOutlined,
+  CloudOutlined,
+  BarChartOutlined,
+  FileTextOutlined,
+  InfoCircleOutlined,
 } from '@ant-design/icons';
 import type { RouteDefinition } from '../routeDefinitions';
 import { canAccessRoute } from './routeAccess';
@@ -17,6 +22,11 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   UploadOutlined: <UploadOutlined />,
   DeleteOutlined: <DeleteOutlined />,
   SettingOutlined: <SettingOutlined />,
+  TagsOutlined: <TagsOutlined />,
+  CloudOutlined: <CloudOutlined />,
+  BarChartOutlined: <BarChartOutlined />,
+  FileTextOutlined: <FileTextOutlined />,
+  InfoCircleOutlined: <InfoCircleOutlined />,
 };
 
 function getIcon(iconName?: string | React.ReactNode): React.ReactNode | undefined {
