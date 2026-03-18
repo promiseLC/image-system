@@ -52,6 +52,9 @@
   justify-content: space-between;
   border-bottom: 1px solid color-mix(in srgb, var(--text-placeholder) 30%, transparent);
   box-shadow: 0 1px 0 0 color-mix(in srgb, var(--text-placeholder) 8%, transparent);
+  position: relative;
+  z-index: 2;
+  view-transition-name: layout-header;
 }
 
 .headerLeft {
@@ -78,10 +81,13 @@
 }
 
 .tabBarWrap {
+  position: relative;
+  z-index: 2;
   flex-shrink: 0;
   padding: 0 24px;
   background: var(--bg-base);
   border-bottom: 1px solid color-mix(in srgb, var(--text-placeholder) 20%, transparent);
+  view-transition-name: layout-tabbar;
 }
 
 .content {
@@ -89,6 +95,7 @@
   min-height: 0;
   padding: 24px;
   overflow: auto;
+  // isolation: isolate;
 
   .breadcrumb {
     margin-bottom: 16px;

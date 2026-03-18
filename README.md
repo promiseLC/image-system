@@ -24,7 +24,7 @@
 | UI 组件     | Ant Design                         | 企业级组件库           |
 | 样式方案    | SCSS + TailwindCSS + CSS Variables | 灵活的主题定制         |
 | HTTP 客户端 | Axios                              | 请求拦截、取消         |
-| 动画        | Framer Motion                      | 路由切换动画           |
+| 动画        | view-transitions                   | 路由切换动画           |
 | 工具库      | Day.js + classnames                | 日期处理、条件类名     |
 
 ## ✨ 功能特性

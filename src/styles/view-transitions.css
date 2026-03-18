@@ -93,10 +93,28 @@
  * 是专门作用于设置了 view-transition-name: page-main 的元素的
  * 用于为页面切换时的“旧页面”和“新页面”内容分别添加动画
  */
+::view-transition-group(page-main) {
+  z-index: 1;
+}
+
 ::view-transition-old(page-main) {
   animation: var(--vt-old-animation, vt-fade-out) var(--vt-duration, 200ms) ease-out forwards;
 }
 
 ::view-transition-new(page-main) {
   animation: var(--vt-new-animation, vt-fade-in) var(--vt-duration, 200ms) ease-out forwards;
+}
+
+/* header/tabBar 参与 View Transitions 以保持在 content 之上（top layer 内正确排序），无动画 */
+::view-transition-group(layout-header),
+::view-transition-group(layout-tabbar) {
+  z-index: 2;
+}
+
+::view-transition-old(layout-header),
+::view-transition-new(layout-header),
+::view-transition-old(layout-tabbar),
+::view-transition-new(layout-tabbar) {
+  animation: none;
+  mix-blend-mode: normal;
 }
