@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useOutlet } from 'react-router-dom';
 import { useRouteAnimation } from '@/router/hooks/useRouteAnimation';
 import styles from './index.module.scss';
 
@@ -13,9 +13,12 @@ const ANIMATION_MAP = {
 /**
  * 带 View Transitions 的 Outlet
  * 根据 handle.animation 设置 view-transition-name 与 CSS 变量，配合全局样式实现路由切换动画
+ * 支持 children：用于 KeepAlive 场景，传入 outlet 元素以保留动画同时支持缓存
  */
-export function AnimatedOutlet() {
+export function AnimatedOutlet({ children }: { children?: React.ReactNode }) {
   const animation = useRouteAnimation();
+  const outlet = useOutlet();
+  const content = children ?? outlet;
 
   useEffect(() => {
     if (animation.type === 'none') return;
@@ -33,12 +36,8 @@ export function AnimatedOutlet() {
   }, [animation.type, animation.duration]);
 
   if (animation.type === 'none') {
-    return <Outlet />;
+    return content;
   }
 
-  return (
-    <div className={styles.wrapper}>
-      <Outlet />
-    </div>
-  );
+  return <div className={styles.wrapper}>{content}</div>;
 }
