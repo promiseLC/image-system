@@ -23,7 +23,13 @@
 ### 1.3 错误与 data 安全
 
 - 所有错误路径在拦截器内 throw，不向页面返回异常 data
-- 页面按 `isPending` → `isError` → `data` 顺序处理，保证成功分支 `data` 有值
+- 成功分支才访问 `data`，保证类型安全
+
+### 1.4 加载态与页面布局
+
+- **原则**：loading 期间保留页面布局，不在全屏替换为 `<Loading />`
+- **做法**：页面主体结构始终展示；数据依赖区域在 `isPending` 时使用局部 loading（如 Skeleton、Spinner 覆盖内容区、或 `keepPreviousData` 保留旧数据 + 弱化 loading 标识）
+- **示例**：列表页保持表格/网格骨架，仅在数据区域显示 Skeleton；登录页可保持表单可见，提交时在按钮或表单区域显示 loading
 
 ---
 
@@ -107,10 +113,23 @@ interface ApiResponse<T = unknown> {
 | HTTP 403 | throw 权限错误                                                                |
 | HTTP 5xx | 直接 throw，不解析 body                                                       |
 
-### 3.4 其他配置
+### 3.4 请求配置项（按需传入）
+
+| 配置项       | 类型    | 默认  | 说明                                                                 |
+| ------------ | ------- | ----- | -------------------------------------------------------------------- |
+| `withHeaders` | boolean | false | 为 true 时返回 `{ data, headers }`，用于按需读取响应头（如 token 等） |
+| `silent`     | boolean | false | 为 true 时，业务错误（code !== 0）不弹出 message 提示                |
+
+### 3.5 错误提示规则
+
+| 场景             | 是否弹出 message.error | 是否可配置 |
+| ---------------- | ---------------------- | ---------- |
+| 业务错误 code≠0  | 默认弹出               | 可，`silent: true` 关闭 |
+| HTTP 5xx         | 始终弹出               | 不可配置   |
+
+### 3.6 其他配置
 
 - timeout: 10s
-- 支持 config.silent 关闭统一错误提示（Phase B 实现）
 
 ---
 
@@ -182,6 +201,15 @@ interface ApiResponse<T = unknown> {
 | login      | useMutation(login)，成功后从响应头取 token 写入 authStore |
 | 需用户信息 | useQuery(['user', 'me'], getCurrentUser)                  |
 | images     | useQuery(['images', params], getImageList)                |
+
+### 6.4 加载态与错误态 UI 模式（遵循 1.4 原则）
+
+- **不采用**：`if (isPending) return <Loading />`（全屏替换，原页面不可见）
+- **采用**：页面布局始终保留，在数据区域内处理 loading/error
+  - `isPending`：数据区域显示 Skeleton、Spinner 或透明遮罩 + loading 图标
+  - `isError`：数据区域显示错误提示（可带重试按钮）
+  - 成功：渲染 `data`
+- **示例**：`<Layout><div>{isPending ? <Skeleton /> : isError ? <Alert /> : <List data={data} />}</div></Layout>`
 
 ---
 

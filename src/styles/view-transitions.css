@@ -118,3 +118,7 @@
   animation: none;
   mix-blend-mode: normal;
 }
+
+::view-transition-group(navigation-progress) {
+  z-index: 3;
+}

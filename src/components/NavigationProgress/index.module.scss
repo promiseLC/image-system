@@ -9,6 +9,8 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 180ms ease-out;
+  // 解决层级问题
+  view-transition-name: navigation-progress;
 
   &.visible {
     opacity: 1;

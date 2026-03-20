@@ -116,7 +116,7 @@ const AdminLayout: React.FC = () => {
         className={styles.sider}
       >
         <div className={cn(styles.logoWrap, collapsed && styles.logoWrapCollapsed)}>
-          {!collapsed && <span className={styles.logoText}>图片管理</span>}
+          {!collapsed && <span className={styles.logoText}>x9系统</span>}
         </div>
         <Menu
           mode="inline"
