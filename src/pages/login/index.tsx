@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
+import React, { useMemo, useState } from 'react';
+import { Alert, Button, Checkbox, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -17,8 +17,9 @@ const Login: React.FC = () => {
   const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
   const authLogin = useAuthStore((s) => s.login);
+  const [rememberMe, setRememberMe] = useState(true);
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, isError, error } = useMutation({
     mutationFn: login,
     onSuccess: ({ token, user }) => {
       authLogin(token, [...user.roles], [...user.permissions]);
@@ -31,6 +32,12 @@ const Login: React.FC = () => {
     },
   });
 
+  const errorMessage = useMemo(() => {
+    if (!isError) return '';
+    if (error instanceof Error) return error.message;
+    return '登录失败，请稍后重试';
+  }, [error, isError]);
+
   const onFinish = (values: LoginFormValues) => {
     mutate(values);
   };
@@ -38,8 +45,19 @@ const Login: React.FC = () => {
   return (
     <div className={styles.login}>
       <div className={styles.card}>
-        <h1 className={styles.title}>登录</h1>
-        <p className={styles.subtitle}>欢迎回来，请登录您的账户（演示：admin / 123456）</p>
+        <div className={styles.header}>
+          <div className={styles.iconWrap} aria-hidden="true">
+            <LockOutlined className={styles.headerIcon} />
+          </div>
+          <h1 className={styles.title}>登录</h1>
+          <p className={styles.subtitle}>欢迎回来，请登录您的账户（演示：admin / 123456）</p>
+        </div>
+
+        {isError && (
+          <div className={styles.alertWrap}>
+            <Alert type="error" showIcon message="登录失败" description={errorMessage} />
+          </div>
+        )}
 
         <Form form={form} layout="vertical" size="large" onFinish={onFinish} className={styles.form}>
           <Form.Item name="username" label="用户名" rules={[{ required: true, message: '请输入用户名' }]}>
@@ -63,7 +81,25 @@ const Login: React.FC = () => {
               登录
             </Button>
           </Form.Item>
+
+          <div className={styles.rememberRow}>
+            <Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)}>
+              记住我
+            </Checkbox>
+          </div>
         </Form>
+
+        <div className={styles.bottomLinks}>
+          <a
+            className={styles.link}
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            忘记密码？
+          </a>
+        </div>
       </div>
     </div>
   );
