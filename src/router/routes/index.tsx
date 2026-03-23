@@ -4,7 +4,7 @@ import { protectedRouteDefinitions } from '../routeDefinitions';
 import type { RouteDefinition } from '../routeDefinitions';
 import { authLoader, loginRedirectLoader } from '../guards/authLoader';
 import RouteErrorBoundary from '@/components/RouteErrorBoundary';
-import Login from '@/pages/login';
+import { LoginRandom } from '@/router/LoginRandom';
 import SuspenseFallback from '@/components/suspenseFallback';
 import { canAccessRoute } from '@/router/utils/routeAccess';
 
@@ -77,7 +77,7 @@ function mergeDefinitionsToRoutes(defs: RouteDefinition[], extra?: Partial<AppRo
 export const publicRoutes: AppRouteObject[] = [
   {
     path: '/login',
-    element: <Login />,
+    element: <LoginRandom />,
     loader: loginRedirectLoader,
     shouldRevalidate: () => true,
     handle: {

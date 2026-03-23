@@ -1,0 +1,150 @@
+.login {
+  min-height: 100vh;
+  @include flex-center;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  background:
+    radial-gradient(1000px circle at 15% 10%, color-mix(in srgb, var(--theme-color) 20%, transparent) 0%, transparent 55%),
+    radial-gradient(900px circle at 90% 20%, color-mix(in srgb, var(--theme-color) 14%, transparent) 0%, transparent 50%),
+    radial-gradient(900px circle at 60% 90%, color-mix(in srgb, var(--text-placeholder) 22%, transparent) 0%, transparent 55%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-base) 98%, #f3f4f6) 0%, var(--bg-base) 100%);
+}
+
+.threeBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  padding: 36px 32px;
+  border-radius: 14px;
+  overflow: hidden;
+
+  background: color-mix(in srgb, var(--bg-base) 46%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  color: var(--text-primary);
+  box-shadow:
+    0 22px 64px rgba(0, 0, 0, 0.14),
+    0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid color-mix(in srgb, var(--text-placeholder) 46%, transparent);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(500px circle at 10% 0%, color-mix(in srgb, var(--theme-color) 18%, transparent) 0%, transparent 55%),
+      radial-gradient(520px circle at 100% 40%, color-mix(in srgb, var(--theme-color) 9%, transparent) 0%, transparent 60%);
+    opacity: 0.8;
+  }
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+}
+
+.iconWrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  margin: 0 auto 16px;
+  background: color-mix(in srgb, var(--theme-color) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--theme-color) 48%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 34px color-mix(in srgb, var(--theme-color) 18%, transparent);
+}
+
+.headerIcon {
+  font-size: 22px;
+  color: var(--theme-color);
+}
+
+.title {
+  margin: 0 0 8px;
+  @include text-size-22(700);
+  color: var(--text-primary);
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: 0 0 22px;
+  @include text-size-14;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.alertWrap {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 16px;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+
+  :global(.ant-form-item) {
+    margin-bottom: 16px;
+  }
+
+  :global(.ant-input),
+  :global(.ant-input-affix-wrapper) {
+    border-radius: 12px;
+  }
+
+  .inputIcon {
+    color: var(--text-secondary);
+  }
+}
+
+.submitItem {
+  margin-bottom: 4px;
+  margin-top: 18px;
+}
+
+.rememberRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 2px 4px;
+
+  :global(.ant-checkbox + span) {
+    color: var(--text-secondary);
+  }
+}
+
+.bottomLinks {
+  position: relative;
+  z-index: 1;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.link {
+  color: color-mix(in srgb, var(--theme-color) 88%, var(--text-secondary));
+  text-decoration: none;
+  font-size: 13px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
