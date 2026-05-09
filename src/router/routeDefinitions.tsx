@@ -27,7 +27,7 @@ export interface RouteDefinition {
 export const protectedRouteDefinitions: RouteDefinition[] = [
   {
     path: '/',
-    component: '/src/components/layout/adminLayout/index.tsx',
+    component: '/src/components/layout/AdminLayout/index.tsx',
     handle: {
       title: '图片管理系统',
       menu: { label: '根布局', hide: true },

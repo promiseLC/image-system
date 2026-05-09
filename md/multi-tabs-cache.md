@@ -71,7 +71,7 @@ RootLayout (Router 内)
 | ----------------------------------------- | --------------------------------------------------- |
 | `src/stores/tabStore.ts`                  | 标签数据与操作（addTab、removeTab、closeOthers 等） |
 | `src/components/TabBar/`                  | 标签栏 UI、右键菜单                                 |
-| `src/components/layout/adminLayout/`      | 布局、KeepAlive 与 AnimatedOutlet 接入              |
+| `src/components/layout/AdminLayout/`      | 布局、KeepAlive 与 AnimatedOutlet 接入              |
 | `src/components/layout/RootLayout/`       | AliveScope 挂载                                     |
 | `src/router/hooks/useCurrentRouteMeta.ts` | 获取当前路由的 title、keepAlive、breadcrumb         |
 

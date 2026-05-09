@@ -237,7 +237,7 @@ export function TabBar() {
 
 **核心思路**：用 `KeepAlive` 包裹 `Outlet`，用 pathname 作为缓存 key；在导航时通过 `useCurrentRouteMeta` 同步更新 tabStore。
 
-**文件**：`src/components/layout/adminLayout/index.tsx`（关键变更）
+**文件**：`src/components/layout/AdminLayout/index.tsx`（关键变更）
 
 ```tsx
 import { KeepAlive } from 'react-activation';

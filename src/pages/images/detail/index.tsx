@@ -10,7 +10,7 @@ const ImageDetail: React.FC = () => {
     <div>
       <h1>图片详情: {id}</h1>
       <p>查看图片详情</p>
-      <img src="https://res.aishinye.com/orthowb/static/20260129/f245990fc5ecb035eb4cca4b08bd4c74.jpg" alt="图片" />
+      <img src={`https://picsum.photos/seed/img${id}/800/300`} alt="detail_image" />
       <Empty description="暂无图片详情" />
     </div>
   );

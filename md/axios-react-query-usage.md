@@ -105,7 +105,7 @@ React Query 主要负责：
 
 相关：
 
-- `src/components/layout/adminLayout/index.tsx`
+- `src/components/layout/AdminLayout/index.tsx`
 - `src/apis/user.ts`
 
 使用方式：

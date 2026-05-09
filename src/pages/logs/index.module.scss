@@ -1,0 +1,22 @@
+.page {
+  padding: 24px;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+}
+
+.title {
+  margin: 0 0 8px;
+  @include text-size-22(600);
+  color: var(--text-primary);
+}
+
+.subtitle {
+  margin: 0 0 24px;
+  @include text-size-14;
+  color: var(--text-secondary);
+}
+
+.card {
+  background-color: var(--bg-base);
+  border: 1px solid color-mix(in srgb, var(--text-placeholder) 35%, transparent);
+}

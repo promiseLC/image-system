@@ -5,7 +5,7 @@ import type { RouteDefinition } from '../routeDefinitions';
 import { authLoader, loginRedirectLoader } from '../guards/authLoader';
 import RouteErrorBoundary from '@/components/RouteErrorBoundary';
 import { LoginRandom } from '@/router/LoginRandom';
-import SuspenseFallback from '@/components/suspenseFallback';
+import SuspenseFallback from '@/components/SuspenseFallback';
 import { canAccessRoute } from '@/router/utils/routeAccess';
 
 /**
